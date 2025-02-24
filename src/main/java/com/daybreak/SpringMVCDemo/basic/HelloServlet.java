@@ -19,5 +19,9 @@ public class HelloServlet extends HttpServlet {
         // query parameter 을 쉽게 읽을 수 있는 getParameter함수 지원
         String username = req.getParameter("username");
         System.out.println("username = " + username);
+
+        res.setContentType("text/plain");
+        res.setCharacterEncoding("utf-8");
+        res.getWriter().write("hello " + username);
     }
 }
