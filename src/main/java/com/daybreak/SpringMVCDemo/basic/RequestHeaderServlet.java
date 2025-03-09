@@ -2,6 +2,7 @@ package com.daybreak.SpringMVCDemo.basic;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -17,6 +18,7 @@ public class RequestHeaderServlet extends HttpServlet {
         // method extract (ctrl + alt + M )
         printStartLine(request);
         printHeaders(request);
+        printHeaderUtils(request);
     }
 
     private static void printStartLine(HttpServletRequest request) {
@@ -51,7 +53,37 @@ public class RequestHeaderServlet extends HttpServlet {
         request.getHeaderNames().asIterator()
                 .forEachRemaining(headerName -> System.out.println(headerName + ": " + headerName));
 
+        request.getHeader("host");
+
         System.out.println("--- Headers - End ---");
         System.out.println();
+    }
+    private void printHeaderUtils(HttpServletRequest request) {
+        System.out.println("--- HeaderUtils - Start ---");
+        System.out.println("[Host 편의 조회]");
+        System.out.println("request.getServerName() = " + request.getServerName());
+        System.out.println("request.getServerPort() = " + request.getServerPort());
+        System.out.println();
+
+        System.out.println("[Accept-Language 편의 조회]");
+        request.getLocales().asIterator()
+                        .forEachRemaining(locale -> System.out.println("locale = " + locale));
+        System.out.println("request.getLocale() = " + request.getLocale());
+        System.out.println();
+
+        System.out.println("[cookie 편의 조회]");
+        if(request.getCookies() != null) {
+            for (Cookie cookie : request.getCookies()) {
+                System.out.println(cookie.getName() + " : " + cookie.getValue());
+            }
+        }
+        System.out.println();
+
+        System.out.println("[Content 편의 조회]");
+        System.out.println("request.getContentType() = " + request.getContentType());
+        System.out.println("request.getContentLength() = " + request.getContentLength());
+        System.out.println("request.getCharacterEncoding() = " + request.getCharacterEncoding());
+
+        System.out.println("--- HeaderUtils - End ---");
     }
 }
