@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {useNavigate} from "react-router";
 import styles from "../css/global/index.module.scss";
+import axios from "axios";
 
 const PAGE_JSON_DATA = [
     {
@@ -69,8 +70,10 @@ const PAGE_JSON_DATA = [
 const BasicPage = () => {
     const navigate = useNavigate();
     const handleNavigateTo = (url) => {
-        // navigate(url);
-        window.location.href = url;
+        axios.get("http://localhost:8080" + url)
+            .then(response => console.log(response.data))
+            .catch(error => console.error("Error:", error));
+        navigate("/basic");
     }
     const [data, _setData] = useState(PAGE_JSON_DATA);
 
