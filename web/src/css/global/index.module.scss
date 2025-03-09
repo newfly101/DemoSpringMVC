@@ -1,0 +1,50 @@
+.container{
+  margin: 2rem;
+
+  .headlineHover {
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 2rem;
+  }
+
+  .linkTag {
+    padding: 10px;
+    color: #000000;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #f8f8cb;
+    }
+  }
+}
+
+.lessonTable {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: flex-start;
+  align-items: center;
+
+  h3 {
+    flex: 1;
+  }
+
+  .tableDetail {
+    flex: 3;
+
+    label {
+      font-size: 1.2rem;
+    }
+    input {
+      padding: 0.3rem;
+      font-size: 1rem;
+      cursor: help;
+      width: 300px;
+    }
+  }
+}
