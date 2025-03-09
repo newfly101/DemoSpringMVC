@@ -71,9 +71,12 @@ const BasicPage = () => {
     const navigate = useNavigate();
     const handleNavigateTo = (url) => {
         axios.get("http://localhost:8080" + url)
-            .then(response => console.log(response.data))
+            .then(response => {
+                console.log(response.data);
+                navigate("/basic");
+                window.location.reload();
+            })
             .catch(error => console.error("Error:", error));
-        navigate("/basic");
     }
     const [data, _setData] = useState(PAGE_JSON_DATA);
 
