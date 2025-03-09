@@ -69,7 +69,8 @@ const PAGE_JSON_DATA = [
 const BasicPage = () => {
     const navigate = useNavigate();
     const handleNavigateTo = (url) => {
-        navigate(url)
+        // navigate(url);
+        window.location.href = url;
     }
     const [data, _setData] = useState(PAGE_JSON_DATA);
 
