@@ -1,105 +1,127 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useNavigate} from "react-router";
 import styles from "../css/global/index.module.scss";
+
+const PAGE_JSON_DATA = [
+    {
+        index: 1,
+        id: "servletRequest",
+        name: "hello 서블릿 호출",
+        reqURI: "/hello?username=servlet",
+        reqName: "페이지 요청"
+    },
+    {
+        index: 2,
+        id: "servletRequest-1",
+        name: "기본 사용법, Header 조회",
+        reqURI: "/request-header",
+        reqName: "페이지 요청"
+
+    },
+    {
+        index: 3,
+        id: "servletRequest-2",
+        name: "Http 요청 메세지 바디 조회 (GET)",
+        reqURI: "/request-param?username=hello&age=20",
+        reqName: "페이지 요청"
+
+    },
+    {
+        index: 4,
+        id: "servletRequest-3",
+        name: "Http 요청 메세지 바디 조회 (POST)",
+        reqURI: "/basic/hello-form.html",
+        reqName: "페이지 요청"
+
+    },
+    {
+        index: 5,
+        id: "servletRequest-4",
+        name: "Http 요청 메세지 바디 조회 (HTTP API)",
+        reqURI: "POSTMAN TEST",
+        reqName: "따로 테스트"
+
+    },
+    {
+        index: 6,
+        id: "servletResponse-1",
+        name: "기본 사용법, Header 조회",
+        reqURI: "/request-header",
+        reqName: "페이지 요청"
+    },
+    {
+        index: 7,
+        id: "servletResponse-2",
+        name: "HTML 응답",
+        reqURI: "/response-html",
+        reqName: "페이지 요청"
+    },
+    {
+        index: 8,
+        id: "servletResponse-3",
+        name: "HTML API JSON 응답",
+        reqURI: "/response-json",
+        reqName: "페이지 요청"
+    }
+
+]
 
 const BasicPage = () => {
     const navigate = useNavigate();
     const handleNavigateTo = (url) => {
         navigate(url)
     }
+    const [data, _setData] = useState(PAGE_JSON_DATA);
+
     return (
         <div className={styles.container}>
             <button className={styles.linkTag} onClick={() => handleNavigateTo("/")}>
                 메인으로 가기
             </button>
-            <div className={styles.lessonTable}>
-                <h3>hello 서블릿 호출</h3>
-                <div className={styles.tableDetail}>
-                    <button className={styles.linkTag} onClick={() => handleNavigateTo("/hello?username=servlet")}>
-                        페이지 요청
-                    </button>
-                    <label htmlFor="request1"> URI : </label>
-                    <input id="request1" type="text" disabled value="/hello?username=servlet"/>
-                </div>
-            </div>
+            {data
+                .filter((item) => item.index === 1)
+                .map((item) => (
+                    <div className={styles.lessonTable} key={item.index}>
+                        <h3>{item.name}</h3>
+                        <div className={styles.tableDetail}>
+                            <button className={styles.linkTag} onClick={() => handleNavigateTo(item.reqURI)}>
+                                {item.reqName}
+                            </button>
+                            <label htmlFor={item.id}> URI : </label>
+                            <input id={item.id} type="text" disabled value={item.reqURI}/>
+                        </div>
+                    </div>
+                ))}
             <h2>HttpServletRequest</h2>
-            <div className={styles.lessonTable}>
-                <h3>기본 사용법, Header 조회</h3>
-                <div className={styles.tableDetail}>
-                    <button className={styles.linkTag} onClick={() => handleNavigateTo("/request-header")}>
-                        페이지 요청
-                    </button>
-                    <label htmlFor="request2"> URI : </label>
-                    <input id="request2" type="text" disabled value="/request-header"/>
-                </div>
-            </div>
-            <div className={styles.lessonTable}>
-                <h3>Http 요청 메세지 바디 조회 (GET)</h3>
-                <div className={styles.tableDetail}>
-                    <button className={styles.linkTag}
-                            onClick={() => handleNavigateTo("/request-param?username=hello&age=20")}>
-                        페이지 요청
-                    </button>
-                    <label htmlFor="request3"> URI : </label>
-                    <input id="request3" type="text" disabled value="/request-param?username=hello&age=20"/>
-                </div>
-            </div>
-            <div className={styles.lessonTable}>
-                <h3>Http 요청 메세지 바디 조회 (POST)</h3>
-                <div className={styles.tableDetail}>
-                    <button className={styles.linkTag}
-                            onClick={() => handleNavigateTo("/basic/hello-form.html")}>
-                        페이지 요청
-                    </button>
-                    <label htmlFor="request4"> URI : </label>
-                    <input id="request4" type="text" disabled value="/basic/hello-form.html"/>
-                </div>
-            </div>
-            <div className={styles.lessonTable}>
-                <h3>Http 요청 메세지 바디 조회 (HTTP API)</h3>
-                <div className={styles.tableDetail}>
-                    <button className={styles.linkTag}>
-                        {/*onClick={() => handleNavigateTo("/basic/hello-form.html")}>*/}
-                        TEST
-                    </button>
-                    <label htmlFor="request4"> URI : </label>
-                    <input id="request4" type="text" disabled value="POSTMAN TEST"/>
-                </div>
-            </div>
+            {data
+                .filter((item) => item.index >= 2 && item.index <= 5)
+                .map((item) => (
+                    <div className={styles.lessonTable} key={item.index}>
+                        <h3>{item.name}</h3>
+                        <div className={styles.tableDetail}>
+                            <button className={styles.linkTag} onClick={() => handleNavigateTo(item.reqURI)}>
+                                {item.reqName}
+                            </button>
+                            <label htmlFor={item.id}> URI : </label>
+                            <input id={item.id} type="text" disabled value={item.reqURI}/>
+                        </div>
+                    </div>
+                ))}
             <h2>HttpServletResponse</h2>
-            <div className={styles.lessonTable}>
-                <h3>기본 사용법, Header 조회</h3>
-                <div className={styles.tableDetail}>
-                    <button className={styles.linkTag}
-                            onClick={() => handleNavigateTo("/request-header")}>
-                        페이지 요청
-                    </button>
-                    <label htmlFor="response1"> URI : </label>
-                    <input id="response1" type="text" disabled value="/request-header"/>
-                </div>
-            </div>
-            <div className={styles.lessonTable}>
-                <h3>HTML 응답</h3>
-                <div className={styles.tableDetail}>
-                    <button className={styles.linkTag}
-                            onClick={() => handleNavigateTo("/response-html")}>
-                        페이지 요청
-                    </button>
-                    <label htmlFor="response1"> URI : </label>
-                    <input id="response1" type="text" disabled value="/response-html"/>
-                </div>
-            </div>
-            <div className={styles.lessonTable}>
-                <h3>HTML API JSON 응답</h3>
-                <div className={styles.tableDetail}>
-                    <button className={styles.linkTag}
-                            onClick={() => handleNavigateTo("/response-json")}>
-                        페이지 요청
-                    </button>
-                    <label htmlFor="response1"> URI : </label>
-                    <input id="response1" type="text" disabled value="/response-json"/>
-                </div>
-            </div>
+            {data
+                .filter((item) => item.index >= 6)
+                .map((item) => (
+                    <div className={styles.lessonTable} key={item.index}>
+                        <h3>{item.name}</h3>
+                        <div className={styles.tableDetail}>
+                            <button className={styles.linkTag} onClick={() => handleNavigateTo(item.reqURI)}>
+                                {item.reqName}
+                            </button>
+                            <label htmlFor={item.id}> URI : </label>
+                            <input id={item.id} type="text" disabled value={item.reqURI}/>
+                        </div>
+                    </div>
+                ))}
         </div>
     );
 };
