@@ -82,7 +82,7 @@ const BasicPage = () => {
 
     return (
         <div className={styles.container}>
-            <button className={styles.linkTag} onClick={() => handleNavigateTo("/")}>
+            <button className={styles.linkTag} onClick={() => navigate("/")}>
                 메인으로 가기
             </button>
             {data
