@@ -22,7 +22,7 @@ public class RequestParamServlet extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        log.debug("[{}].service", className);
+        log.debug("[{}].service 실행", className);
 
 
         log.debug("[RequestParamServlet] 전체 파라미터 조회 - start");
@@ -30,5 +30,11 @@ public class RequestParamServlet extends HttpServlet {
             log.debug("[{}] {} = {}",className, name,request.getParameter(name));
         });
         log.debug("[RequestParamServlet] 전체 파라미터 조회 - end");
+        
+        log.debug("[{}] 이름이 같은 복수 parameter 조회 - start", className);
+        String[] usernames = request.getParameterValues("username");
+        for (String username : usernames) {
+            log.debug("[{}] {}",className, username);
+        }
     }
 }

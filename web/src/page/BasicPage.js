@@ -28,6 +28,15 @@ const PAGE_JSON_DATA = [
 
     },
     {
+        index: 3,
+        id: "servletRequest-2",
+        name: "Http 요청 메세지 바디 복수 조회 (GET)",
+        reqURI: "/request-param?username=hello&age=20&username=hello2",
+        reqName: "페이지 요청",
+        tooltip: "메세지 key의 이름이 같은 것이 여러개 들어오는 경우"
+
+    },
+    {
         index: 4,
         id: "servletRequest-3",
         name: "Http 요청 메세지 바디 조회 (POST)",
@@ -104,7 +113,10 @@ const BasicPage = () => {
                 .filter((item) => item.index >= 2 && item.index <= 5)
                 .map((item) => (
                     <div className={styles.lessonTable} key={item.index}>
-                        <h3>{item.name}</h3>
+                        <div className={styles.tootipBox}>
+                            <h3>{item.name}</h3>
+                            {item.tooltip && <span className={styles.tooltip}>{item.tooltip}</span>}
+                        </div>
                         <div className={styles.tableDetail}>
                             <button className={styles.linkTag} onClick={() => handleNavigateTo(item.reqURI)}>
                                 {item.reqName}
