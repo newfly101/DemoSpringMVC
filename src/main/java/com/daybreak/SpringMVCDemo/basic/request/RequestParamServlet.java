@@ -18,11 +18,17 @@ import java.util.Enumeration;
 @Slf4j
 @WebServlet(name="requestParamServlet", urlPatterns = "/request-param")
 public class RequestParamServlet extends HttpServlet {
+    String className = "RequestParamServlet";
 
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        log.debug("RequestParamServlet.service");
+        log.debug("[{}].service", className);
 
-        request.getParameterNames();
+
+        log.debug("[RequestParamServlet] 전체 파라미터 조회 - start");
+        request.getParameterNames().asIterator().forEachRemaining(name -> {
+            log.debug("[{}] {} = {}",className, name,request.getParameter(name));
+        });
+        log.debug("[RequestParamServlet] 전체 파라미터 조회 - end");
     }
 }
