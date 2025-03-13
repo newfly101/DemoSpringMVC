@@ -23,6 +23,8 @@ public class RequestParamServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         log.debug("[{}].service 실행", className);
+        String checkMethod = request.getMethod();
+        log.debug("[{}] -> [{}]", className, checkMethod);
 
 
         log.debug("[RequestParamServlet] 전체 파라미터 조회 - start");
@@ -33,11 +35,14 @@ public class RequestParamServlet extends HttpServlet {
         
         log.debug("[{}] 이름이 같은 복수 parameter 조회 - start", className);
         String[] usernames = request.getParameterValues("username");
-        for (String username : usernames) {
-            log.debug("[{}] {}",className, username);
+        if (usernames != null) {
+            for (String username : usernames) {
+                log.debug("[{}] {}",className, username);
+            }
         }
 
+
         // 클라이언트(브라우저 또는 API 요청을 보낸 곳)에서 응답을 받으면 **"ok"**라는 문자열이 표시됨.
-        response.getWriter().write("ok");
+//        response.getWriter().write("ok");
     }
 }

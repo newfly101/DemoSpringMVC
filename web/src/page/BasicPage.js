@@ -41,7 +41,7 @@ const PAGE_JSON_DATA = [
         index: 4,
         id: "servletRequest-3",
         name: "Http 요청 메세지 바디 조회 (POST)",
-        reqURI: "/request-param/post",
+        reqURI: "/request-param",
         reqName: "페이지 요청"
 
     },
@@ -79,12 +79,19 @@ const PAGE_JSON_DATA = [
 
 const BasicPage = () => {
     const navigate = useNavigate();
-    const handleNavigateTo = (url) => {
+    const handleNavigateToGet = (url) => {
         axios.get("http://localhost:8080" + url)
             .then(response => {
                 console.log(response.data);
                 navigate("/basic");
-                window.location.reload();
+            })
+            .catch(error => console.error("Error:", error));
+    }
+    const handleNavigateToPost = (url) => {
+        axios.post("http://localhost:8080" + url)
+            .then(response => {
+                console.log(response.data);
+                navigate("/basic");
             })
             .catch(error => console.error("Error:", error));
     }
@@ -108,7 +115,7 @@ const BasicPage = () => {
                     <div className={styles.lessonTable} key={item.index}>
                         <h3>{item.name}</h3>
                         <div className={styles.tableDetail}>
-                            <button className={styles.linkTag} onClick={() => handleNavigateTo(item.reqURI)}>
+                            <button className={styles.linkTag} onClick={() => handleNavigateToGet(item.reqURI)}>
                                 {item.reqName}
                             </button>
                             <label htmlFor={item.id}> URI : </label>
@@ -126,12 +133,12 @@ const BasicPage = () => {
                             {item.tooltip && <span className={styles.tooltip}>{item.tooltip}</span>}
                         </div>
                         <div className={styles.tableDetail}>
-                            {item.reqURI === "/request-param/post" ?
+                            {item.reqURI === "/request-param" ?
                                 <button className={styles.linkTag} onClick={() => openDialog(item.reqURI)}>
                                     {item.reqName}
                                 </button>
                                 :
-                                <button className={styles.linkTag} onClick={() => handleNavigateTo(item.reqURI)}>
+                                <button className={styles.linkTag} onClick={() => handleNavigateToGet(item.reqURI)}>
                                     {item.reqName}
                                 </button>
                             }
@@ -148,7 +155,7 @@ const BasicPage = () => {
                     <div className={styles.lessonTable} key={item.index}>
                         <h3>{item.name}</h3>
                         <div className={styles.tableDetail}>
-                            <button className={styles.linkTag} onClick={() => handleNavigateTo(item.reqURI)}>
+                            <button className={styles.linkTag} onClick={() => handleNavigateToGet(item.reqURI)}>
                                 {item.reqName}
                             </button>
                             <label htmlFor={item.id}> URI : </label>
@@ -157,7 +164,7 @@ const BasicPage = () => {
                     </div>
                 ))}
             {isDialogOpen && (
-                <PostForm isOpen={isDialogOpen} reqURI={selectedReqURI} onClose={() => setIsDialogOpen(false)} />
+                <PostForm isOpen={isDialogOpen} reqURI={selectedReqURI} onClose={() => setIsDialogOpen(false)} navigate={() => handleNavigateToPost(selectedReqURI)} />
             )}
         </div>
     );
