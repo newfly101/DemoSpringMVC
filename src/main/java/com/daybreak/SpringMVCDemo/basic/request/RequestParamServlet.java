@@ -36,5 +36,8 @@ public class RequestParamServlet extends HttpServlet {
         for (String username : usernames) {
             log.debug("[{}] {}",className, username);
         }
+
+        // 클라이언트(브라우저 또는 API 요청을 보낸 곳)에서 응답을 받으면 **"ok"**라는 문자열이 표시됨.
+        response.getWriter().write("ok");
     }
 }
