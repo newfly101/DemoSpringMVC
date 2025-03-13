@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.util.Enumeration;
@@ -14,12 +15,13 @@ import java.util.Enumeration;
  * http://localhost:8080/request-param?username=hello&age=20
  *
  */
+@Slf4j
 @WebServlet(name="requestParamServlet", urlPatterns = "/request-param")
 public class RequestParamServlet extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("RequestParamServlet.service");
+        log.debug("RequestParamServlet.service");
 
         request.getParameterNames();
     }
