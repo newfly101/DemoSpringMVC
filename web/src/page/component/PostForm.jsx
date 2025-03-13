@@ -1,4 +1,5 @@
 import React, {useRef} from 'react';
+import styles from "../../css/compnent/component.module.scss";
 
 const PostForm = ({isOpen, reqURI, onClose}) => {
     const dialogRef = useRef(null);
@@ -13,12 +14,12 @@ const PostForm = ({isOpen, reqURI, onClose}) => {
     }, [isOpen]);
     return (
         <dialog ref={dialogRef} onClose={onClose}>
-            <form action={reqURI} method="POST">
+            <form className={styles.container} action={reqURI} method="POST">
                 <input type="text" placeholder="유저 이름"/>
                 <input type="text" placeholder="나이"/>
-                <div>
+                <div className={styles.buttonContainer}>
                     <button type="submit">전송</button>
-                    <button type="button">닫기</button>
+                    <button type="button" onClick={onClose}>닫기</button>
                 </div>
             </form>
         </dialog>

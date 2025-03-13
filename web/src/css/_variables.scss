@@ -1,0 +1,42 @@
+$component-background: #ededed;
+$component-border: #afafaf;
+$component-border-hover: #d1d1d1;
+
+
+@mixin flex-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+@mixin dialog-input {
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  background-color: $component-background;
+  box-sizing: border-box;
+
+  &:focus {
+    outline: 1px solid $component-border;
+  }
+}
+
+@mixin dialog-button {
+  padding: 10px 20px;
+  border : none;
+  border-radius: 5px;
+  background-color: $component-background;
+
+  &:hover {
+    background-color: $component-border-hover;
+  }
+}

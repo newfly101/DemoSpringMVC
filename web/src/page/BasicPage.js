@@ -156,7 +156,9 @@ const BasicPage = () => {
                         </div>
                     </div>
                 ))}
-            <PostForm isOpen={isDialogOpen} reqURI={selectedReqURI} onClose={() => setIsDialogOpen(false)} />
+            {isDialogOpen && (
+                <PostForm isOpen={isDialogOpen} reqURI={selectedReqURI} onClose={() => setIsDialogOpen(false)} />
+            )}
         </div>
     );
 };
