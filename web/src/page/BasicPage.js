@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {useNavigate} from "react-router";
 import styles from "../css/global/index.module.scss";
 import axios from "axios";
+import PostForm from "./component/PostForm";
 
 const PAGE_JSON_DATA = [
     {
@@ -40,7 +41,7 @@ const PAGE_JSON_DATA = [
         index: 4,
         id: "servletRequest-3",
         name: "Http 요청 메세지 바디 조회 (POST)",
-        reqURI: "/basic/hello-form.html",
+        reqURI: "/request-param/post",
         reqName: "페이지 요청"
 
     },
@@ -89,6 +90,13 @@ const BasicPage = () => {
     }
     const [data, _setData] = useState(PAGE_JSON_DATA);
 
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [selectedReqURI, setSelectedReqURI] = useState("");
+    const openDialog = (reqURI) => {
+        setIsDialogOpen(true);
+        setSelectedReqURI(reqURI);
+    }
+
     return (
         <div className={styles.container}>
             <button className={styles.linkTag} onClick={() => navigate("/")}>
@@ -118,9 +126,16 @@ const BasicPage = () => {
                             {item.tooltip && <span className={styles.tooltip}>{item.tooltip}</span>}
                         </div>
                         <div className={styles.tableDetail}>
-                            <button className={styles.linkTag} onClick={() => handleNavigateTo(item.reqURI)}>
-                                {item.reqName}
-                            </button>
+                            {item.reqURI === "/request-param/post" ?
+                                <button className={styles.linkTag} onClick={() => openDialog(item.reqURI)}>
+                                    {item.reqName}
+                                </button>
+                                :
+                                <button className={styles.linkTag} onClick={() => handleNavigateTo(item.reqURI)}>
+                                    {item.reqName}
+                                </button>
+                            }
+
                             <label htmlFor={item.id}> URI : </label>
                             <input id={item.id} type="text" disabled value={item.reqURI}/>
                         </div>
@@ -141,6 +156,7 @@ const BasicPage = () => {
                         </div>
                     </div>
                 ))}
+            <PostForm isOpen={isDialogOpen} reqURI={selectedReqURI} onClose={() => setIsDialogOpen(false)} />
         </div>
     );
 };
