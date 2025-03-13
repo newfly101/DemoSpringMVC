@@ -90,10 +90,18 @@ const BasicPage = () => {
     const handleNavigateToPost = (url) => {
         axios.post("http://localhost:8080" + url)
             .then(response => {
-                console.log(response.data);
-                navigate("/basic");
+                console.log(response);
+                // if (response.data === "ok") {
+                //     navigate("/basic", {replace: true});
+                // }
             })
-            .catch(error => console.error("Error:", error));
+            .catch(error => console.error("Error:", error))
+            .finally(() => {
+                    console.log(window.location.pathname);
+                    if (window.location.pathname === "/request-param") {
+                        navigate("/basic", {replace: true});
+                    }
+                });
     }
     const [data, _setData] = useState(PAGE_JSON_DATA);
 

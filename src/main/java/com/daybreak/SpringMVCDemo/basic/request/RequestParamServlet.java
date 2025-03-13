@@ -43,6 +43,8 @@ public class RequestParamServlet extends HttpServlet {
 
 
         // 클라이언트(브라우저 또는 API 요청을 보낸 곳)에서 응답을 받으면 **"ok"**라는 문자열이 표시됨.
-//        response.getWriter().write("ok");
+        response.setContentType("text/plain; charset=UTF-8"); // ✅ 추가
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write("ok");
     }
 }
